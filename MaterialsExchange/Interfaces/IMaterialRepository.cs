@@ -10,6 +10,6 @@ namespace MaterialsExchange.Interfaces
         bool CreateMaterial(Material material);
         bool Save();
         bool UpdateMaterial(Material material);
-
+        bool DeleteMaterial(Material material);
     }
 }

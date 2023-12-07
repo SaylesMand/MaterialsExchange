@@ -92,7 +92,22 @@ namespace MaterialsExchange.Controllers
             }
 
             return NoContent();
+        }
+        [HttpDelete("{mateId}")]
+        public IActionResult DeleteMaterial(int mateId)
+        {
+            if (!_materialRepository.MaterialExists(mateId))
+                return NotFound();
 
+            var materialToDelete = _materialRepository.GetMaterial(mateId);
+            
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if (!_materialRepository.DeleteMaterial(materialToDelete))
+                ModelState.AddModelError("", "Something went wrong deleting material");
+
+            return NoContent();
         }
     }
 }
