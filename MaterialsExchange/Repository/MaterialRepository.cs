@@ -40,6 +40,11 @@ namespace MaterialsExchange.Repository
             return _context.Material.OrderBy(m => m.Id).ToList();
         }
 
+        public ICollection<Material> GetMaterialsOfASeller(int sellId)
+        {
+            return _context.Material.Where(m => m.SellerId == sellId).ToList();
+        }
+
         public bool MaterialExists(int mateId)
         {
             return _context.Material.Any(m => m.Id == mateId);

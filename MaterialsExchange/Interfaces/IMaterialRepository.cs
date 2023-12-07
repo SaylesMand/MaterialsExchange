@@ -12,5 +12,6 @@ namespace MaterialsExchange.Interfaces
         bool UpdateMaterial(Material material);
         bool DeleteMaterial(Material material);
         bool DeleteMaterials(List<Material> materials);
+        ICollection<Material> GetMaterialsOfASeller(int sellId);
     }
 }
