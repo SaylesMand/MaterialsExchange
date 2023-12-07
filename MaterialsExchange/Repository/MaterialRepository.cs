@@ -38,5 +38,11 @@ namespace MaterialsExchange.Repository
             var saved = _context.SaveChanges();
             return saved > 0? true: false;
         }
+
+        public bool UpdateMaterial(Material material)
+        {
+            _context.Update(material);
+            return Save();
+        }
     }
 }

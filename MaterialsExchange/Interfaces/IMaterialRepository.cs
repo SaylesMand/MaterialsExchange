@@ -9,6 +9,7 @@ namespace MaterialsExchange.Interfaces
         bool MaterialExists(int mateId);
         bool CreateMaterial(Material material);
         bool Save();
+        bool UpdateMaterial(Material material);
 
     }
 }
