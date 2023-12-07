@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MaterialsExchange.Dto;
 using MaterialsExchange.Interfaces;
+using MaterialsExchange.Models;
 using MaterialsExchange.Repository;
 using Microsoft.AspNetCore.Mvc;
 
@@ -38,6 +39,35 @@ namespace MaterialsExchange.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             return Ok(seller);
+        }
+
+        [HttpPost]
+        public IActionResult CreateSeller([FromBody] SellerDto sellerCreate)
+        {
+            if (sellerCreate == null)
+                return BadRequest(ModelState);
+
+            var seller = _sellerRepository.GetSellers()
+                .Where(m => m.Name.Trim().ToUpper() == sellerCreate.Name.TrimEnd().ToUpper()).FirstOrDefault();
+
+            if (seller != null)
+            {
+                ModelState.AddModelError("", "Seller already exists");
+                return StatusCode(422, ModelState);
+            }
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var SellerMap = _mapper.Map<Seller>(sellerCreate);
+
+            if (!_sellerRepository.CreateSeller(SellerMap))
+            {
+                ModelState.AddModelError("", "Something went wrong while saving");
+                return StatusCode(500, ModelState);
+            }
+
+            return Ok("Succesfully created");
         }
     }
 }
