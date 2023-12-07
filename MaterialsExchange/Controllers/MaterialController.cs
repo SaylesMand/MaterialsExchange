@@ -40,6 +40,7 @@ namespace MaterialsExchange.Controllers
                 return BadRequest(ModelState);
             return Ok(material);
         }
+        [HttpPost]
         public IActionResult CreateMaterial([FromBody] MaterialDto materialCreate)
         {
             if (materialCreate == null)
