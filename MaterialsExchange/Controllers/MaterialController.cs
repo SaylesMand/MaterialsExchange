@@ -68,5 +68,31 @@ namespace MaterialsExchange.Controllers
 
             return Ok("Succesfully created");
         }
+        [HttpPut("{mateId}")]
+        public IActionResult UpdateMaterial(int materialId, [FromBody] MaterialDto updatedMaterial)
+        {
+            if (updatedMaterial == null)
+                return BadRequest(ModelState);
+
+            if (materialId != updatedMaterial.Id)
+                return BadRequest(ModelState);
+
+            if (!_materialRepository.MaterialExists(materialId))
+                return NotFound();
+
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var materialMap = _mapper.Map<Material>(updatedMaterial);
+
+            if (!_materialRepository.UpdateMaterial(materialMap))
+            {
+                ModelState.AddModelError("", "Something went wrong updating material");
+                return StatusCode(500, ModelState);
+            }
+
+            return NoContent();
+
+        }
     }
 }
