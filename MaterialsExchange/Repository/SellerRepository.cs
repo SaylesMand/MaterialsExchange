@@ -15,7 +15,8 @@ namespace MaterialsExchange.Repository
 
         public bool CreateSeller(Seller seller)
         {
-            throw new NotImplementedException();
+            _context.Add(seller);
+            return Save();
         }
 
         public Seller GetSeller(int id)
