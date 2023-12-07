@@ -13,6 +13,11 @@ namespace MaterialsExchange.Repository
             _context = context;
         }
 
+        public bool CreateSeller(Seller seller)
+        {
+            throw new NotImplementedException();
+        }
+
         public Seller GetSeller(int id)
         {
             return _context.Seller.Where(s => s.Id == id).FirstOrDefault();
@@ -21,6 +26,12 @@ namespace MaterialsExchange.Repository
         public ICollection<Seller> GetSellers()
         {
             return _context.Seller.OrderBy(s => s.Id).ToList();
+        }
+
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0? true : false;
         }
 
         public bool SellerExists(int sellId)

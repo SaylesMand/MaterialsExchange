@@ -7,5 +7,7 @@ namespace MaterialsExchange.Interfaces
         ICollection<Seller> GetSellers();
         Seller GetSeller(int id);
         bool SellerExists(int sellId);
+        bool CreateSeller(Seller seller);
+        bool Save();
     }
 }
