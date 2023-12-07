@@ -24,6 +24,12 @@ namespace MaterialsExchange.Repository
             return Save();
         }
 
+        public bool DeleteMaterials(List<Material> materials)
+        {
+            _context.RemoveRange(materials);
+            return Save();
+        }
+
         public Material GetMaterial(int id)
         {
             return _context.Material.Where(m => m.Id == id).FirstOrDefault();

@@ -11,5 +11,6 @@ namespace MaterialsExchange.Interfaces
         bool Save();
         bool UpdateMaterial(Material material);
         bool DeleteMaterial(Material material);
+        bool DeleteMaterials(List<Material> materials);
     }
 }
