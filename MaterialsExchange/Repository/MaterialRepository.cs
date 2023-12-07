@@ -1,9 +1,10 @@
 ﻿using MaterialsExchange.Data;
+using MaterialsExchange.Interfaces;
 using MaterialsExchange.Models;
 
 namespace MaterialsExchange.Repository
 {
-    public class MaterialRepository
+    public class MaterialRepository : IMaterialRepository
     {
         private readonly AppDbContext _context;
         public MaterialRepository(AppDbContext context)
