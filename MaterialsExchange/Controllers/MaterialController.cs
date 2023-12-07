@@ -68,7 +68,7 @@ namespace MaterialsExchange.Controllers
 
             return Ok("Succesfully created");
         }
-        [HttpPut("{mateId}")]
+        [HttpPut("{materialId}")]
         public IActionResult UpdateMaterial(int materialId, [FromBody] MaterialDto updatedMaterial)
         {
             if (updatedMaterial == null)
