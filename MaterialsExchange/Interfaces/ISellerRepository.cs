@@ -10,5 +10,6 @@ namespace MaterialsExchange.Interfaces
         bool CreateSeller(Seller seller);
         bool Save();
         bool UpdateSeller(Seller seller);
+        bool DeleteSeller(Seller seller);
     }
 }

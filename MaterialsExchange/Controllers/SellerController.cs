@@ -13,10 +13,12 @@ namespace MaterialsExchange.Controllers
     {
         private readonly ISellerRepository _sellerRepository;
         private readonly IMapper _mapper;
-        public SellerController(ISellerRepository sellerRepository, IMapper mapper)
+        private readonly IMaterialRepository _materialRepository;
+        public SellerController(ISellerRepository sellerRepository, IMapper mapper, IMaterialRepository materialRepository)
         {
             _sellerRepository = sellerRepository;
             _mapper = mapper;
+            _materialRepository = materialRepository;
         }
         [HttpGet]
         public IActionResult GetSellers()
@@ -91,6 +93,28 @@ namespace MaterialsExchange.Controllers
                 ModelState.AddModelError("", "Something went wrong updating seller");
                 return StatusCode(500, ModelState);
             }
+
+            return NoContent();
+        }
+        [HttpDelete("{sellId}")]
+        public IActionResult DeleteSeller(int sellId)
+        {
+            if (!_sellerRepository.SellerExists(sellId))
+                return NotFound();
+
+            var materialToDelete = _materialRepository.GetMaterialsOfASeller(sellId);
+            var sellerToDelete = _sellerRepository.GetSeller(sellId);
+
+            
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if (_materialRepository.DeleteMaterials(materialToDelete.ToList()))
+                ModelState.AddModelError("", "Something went wrond when deleting materials");
+
+
+            if (!_sellerRepository.DeleteSeller(sellerToDelete))
+                ModelState.AddModelError("", "Something went wrong deleting seller");
 
             return NoContent();
         }

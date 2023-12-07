@@ -19,6 +19,12 @@ namespace MaterialsExchange.Repository
             return Save();
         }
 
+        public bool DeleteSeller(Seller seller)
+        {
+            _context.Remove(seller);
+            return Save();
+        }
+
         public Seller GetSeller(int id)
         {
             return _context.Seller.Where(s => s.Id == id).FirstOrDefault();
