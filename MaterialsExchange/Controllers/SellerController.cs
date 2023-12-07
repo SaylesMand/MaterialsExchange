@@ -69,5 +69,30 @@ namespace MaterialsExchange.Controllers
 
             return Ok("Succesfully created");
         }
+        [HttpPut("{sellerId}")]
+        public IActionResult UpdateSeller(int sellerId, [FromBody] SellerDto updatedSeller)
+        {
+            if (updatedSeller == null)
+                return BadRequest(ModelState);
+
+            if (sellerId != updatedSeller.Id)
+                return BadRequest(ModelState);
+
+            if (!_sellerRepository.SellerExists(sellerId))
+                return NotFound();
+
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var sellerMap = _mapper.Map<Seller>(updatedSeller);
+
+            if (!_sellerRepository.UpdateSeller(sellerMap))
+            {
+                ModelState.AddModelError("", "Something went wrong updating seller");
+                return StatusCode(500, ModelState);
+            }
+
+            return NoContent();
+        }
     }
 }
