@@ -9,7 +9,11 @@ namespace MaterialsExchange.Helper
         public MappingProfiles() 
         {
             CreateMap<Material, MaterialDto>();
+            CreateMap<MaterialDto, Material>();
+            
             CreateMap<Seller, SellerDto>();
+            CreateMap<SellerDto, Seller>();
+
         }
     }
 }
