@@ -12,6 +12,12 @@ namespace MaterialsExchange.Repository
             _context = context;
         }
 
+        public bool CreateMaterial(Material material)
+        {
+            _context.Add(material);
+            return Save();
+        }
+
         public Material GetMaterial(int id)
         {
             return _context.Material.Where(m => m.Id == id).FirstOrDefault();
@@ -25,6 +31,12 @@ namespace MaterialsExchange.Repository
         public bool MaterialExists(int mateId)
         {
             return _context.Material.Any(m => m.Id == mateId);
+        }
+
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0? true: false;
         }
     }
 }
