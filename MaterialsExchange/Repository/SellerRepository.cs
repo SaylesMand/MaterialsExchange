@@ -39,5 +39,11 @@ namespace MaterialsExchange.Repository
         {
             return _context.Seller.Any(s => s.Id == sellId);
         }
+
+        public bool UpdateSeller(Seller seller)
+        {
+            _context.Update(seller);
+            return Save();
+        }
     }
 }

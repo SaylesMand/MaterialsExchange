@@ -9,5 +9,6 @@ namespace MaterialsExchange.Interfaces
         bool SellerExists(int sellId);
         bool CreateSeller(Seller seller);
         bool Save();
+        bool UpdateSeller(Seller seller);
     }
 }
